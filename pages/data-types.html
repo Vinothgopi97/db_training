@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL Data Types</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="postgresql-intro.html">Previous: PostgreSQL Introduction</a></li>
+                <li><a href="constraints.html">Next: Constraints</a></li>
+            </ul>
+        </nav>
+
+        <h1>PostgreSQL Data Types</h1>
+
+        <div class="topic-section">
+            <h2>Numeric Data Types</h2>
+            <table>
+                <tr>
+                    <th>Data Type</th>
+                    <th>Description</th>
+                    <th>Size</th>
+                </tr>
+                <tr>
+                    <td>SMALLINT</td>
+                    <td>Small-range integer</td>
+                    <td>2 bytes</td>
+                </tr>
+                <tr>
+                    <td>INTEGER</td>
+                    <td>Typical choice for integer</td>
+                    <td>4 bytes</td>
+                </tr>
+                <tr>
+                    <td>BIGINT</td>
+                    <td>Large-range integer</td>
+                    <td>8 bytes</td>
+                </tr>
+                <tr>
+                    <td>DECIMAL</td>
+                    <td>User-specified precision</td>
+                    <td>variable</td>
+                </tr>
+                <tr>
+                    <td>NUMERIC</td>
+                    <td>User-specified precision</td>
+                    <td>variable</td>
+                </tr>
+                <tr>
+                    <td>REAL</td>
+                    <td>Variable-precision</td>
+                    <td>4 bytes</td>
+                </tr>
+                <tr>
+                    <td>DOUBLE PRECISION</td>
+                    <td>Variable-precision</td>
+                    <td>8 bytes</td>
+                </tr>
+            </table>
+
+            <h2>Character Data Types</h2>
+            <table>
+                <tr>
+                    <th>Data Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>CHAR(n)</td>
+                    <td>Fixed-length character string</td>
+                </tr>
+                <tr>
+                    <td>VARCHAR(n)</td>
+                    <td>Variable-length character string</td>
+                </tr>
+                <tr>
+                    <td>TEXT</td>
+                    <td>Variable unlimited length</td>
+                </tr>
+            </table>
+
+            <h2>Date/Time Data Types</h2>
+            <table>
+                <tr>
+                    <th>Data Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>DATE</td>
+                    <td>Date (no time of day)</td>
+                </tr>
+                <tr>
+                    <td>TIME</td>
+                    <td>Time of day (no date)</td>
+                </tr>
+                <tr>
+                    <td>TIMESTAMP</td>
+                    <td>Date and time</td>
+                </tr>
+                <tr>
+                    <td>INTERVAL</td>
+                    <td>Time interval</td>
+                </tr>
+            </table>
+
+            <h2>Boolean Data Type</h2>
+            <div class="example">
+                <code>
+                    -- Boolean can be: true, false, or null<br>
+                    CREATE TABLE example (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        is_active BOOLEAN DEFAULT true<br>
+                    );
+                </code>
+            </div>
+
+            <h2>Special Data Types</h2>
+            <ul>
+                <li><strong>UUID:</strong> Universally unique identifiers</li>
+                <li><strong>JSON/JSONB:</strong> JSON data with/without indexing</li>
+                <li><strong>ARRAY:</strong> Array of any data type</li>
+                <li><strong>BYTEA:</strong> Binary data</li>
+                <li><strong>MONEY:</strong> Currency amount</li>
+            </ul>
+
+            <div class="note">
+                <p><strong>Choosing the Right Data Type:</strong></p>
+                <ul>
+                    <li>Consider the range of values needed</li>
+                    <li>Think about storage requirements</li>
+                    <li>Consider performance implications</li>
+                    <li>Think about data validation needs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

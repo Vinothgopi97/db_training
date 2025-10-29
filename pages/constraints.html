@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Constraints</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="data-types.html">Previous: Data Types</a></li>
+                <li><a href="relationships.html">Next: Relationships</a></li>
+            </ul>
+        </nav>
+
+        <h1>Database Constraints</h1>
+
+        <div class="topic-section">
+            <h2>What are Constraints?</h2>
+            <p>Constraints are rules enforced on data columns in tables. They are used to limit the type of data that can be stored in a table, ensuring accuracy and reliability of the data.</p>
+
+            <h2>Types of Constraints</h2>
+
+            <div class="example">
+                <h3>1. PRIMARY KEY Constraint</h3>
+                <code>
+                    CREATE TABLE users (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        username VARCHAR(50) NOT NULL<br>
+                    );
+                </code>
+                <p>Ensures that a column or combination of columns uniquely identifies each row in a table.</p>
+            </div>
+
+            <div class="example">
+                <h3>2. FOREIGN KEY Constraint</h3>
+                <code>
+                    CREATE TABLE orders (<br>
+                        order_id SERIAL PRIMARY KEY,<br>
+                        user_id INTEGER REFERENCES users(id),<br>
+                        order_date DATE<br>
+                    );
+                </code>
+                <p>Creates a link between data in two tables, maintaining referential integrity.</p>
+            </div>
+
+            <div class="example">
+                <h3>3. UNIQUE Constraint</h3>
+                <code>
+                    CREATE TABLE users (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        email VARCHAR(255) UNIQUE,<br>
+                        username VARCHAR(50)<br>
+                    );
+                </code>
+                <p>Ensures all values in a column are different.</p>
+            </div>
+
+            <div class="example">
+                <h3>4. NOT NULL Constraint</h3>
+                <code>
+                    CREATE TABLE products (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        name VARCHAR(100) NOT NULL,<br>
+                        price DECIMAL NOT NULL<br>
+                    );
+                </code>
+                <p>Ensures a column cannot have NULL value.</p>
+            </div>
+
+            <div class="example">
+                <h3>5. CHECK Constraint</h3>
+                <code>
+                    CREATE TABLE products (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        name VARCHAR(100) NOT NULL,<br>
+                        price DECIMAL CHECK (price > 0)<br>
+                    );
+                </code>
+                <p>Ensures all values in a column satisfy certain conditions.</p>
+            </div>
+
+            <h2>Adding Constraints to Existing Tables</h2>
+            <div class="example">
+                <code>
+                    -- Add a unique constraint<br>
+                    ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE (email);<br><br>
+                    
+                    -- Add a foreign key constraint<br>
+                    ALTER TABLE orders<br>
+                    ADD CONSTRAINT fk_user<br>
+                    FOREIGN KEY (user_id) REFERENCES users(id);<br><br>
+                    
+                    -- Add a check constraint<br>
+                    ALTER TABLE products<br>
+                    ADD CONSTRAINT positive_price CHECK (price > 0);
+                </code>
+            </div>
+
+            <div class="note">
+                <p><strong>Best Practices:</strong></p>
+                <ul>
+                    <li>Always use appropriate constraints to maintain data integrity</li>
+                    <li>Name constraints meaningfully for easier maintenance</li>
+                    <li>Consider the impact on performance</li>
+                    <li>Plan constraints during database design phase</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

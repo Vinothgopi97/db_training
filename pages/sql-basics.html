@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Basics</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="relational-model.html">Previous: Relational Model</a></li>
+                <li><a href="postgresql-intro.html">Next: PostgreSQL Introduction</a></li>
+            </ul>
+        </nav>
+
+        <h1>SQL Basics</h1>
+
+        <div class="topic-section">
+            <h2>What is SQL?</h2>
+            <p>SQL (Structured Query Language) is the standard language for managing and manipulating relational databases. It's used for storing, manipulating, and retrieving data in databases.</p>
+
+            <h2>Basic SQL Commands</h2>
+            
+            <div class="example">
+                <h3>DDL (Data Definition Language)</h3>
+                <code>
+                    -- Create a table<br>
+                    CREATE TABLE users (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        name VARCHAR(100),<br>
+                        email VARCHAR(255)<br>
+                    );<br><br>
+                    
+                    -- Modify table structure<br>
+                    ALTER TABLE users ADD COLUMN age INTEGER;<br><br>
+                    
+                    -- Delete table<br>
+                    DROP TABLE users;
+                </code>
+            </div>
+
+            <div class="example">
+                <h3>DML (Data Manipulation Language)</h3>
+                <code>
+                    -- Insert data<br>
+                    INSERT INTO users (name, email) VALUES ('John', 'john@example.com');<br><br>
+                    
+                    -- Update data<br>
+                    UPDATE users SET age = 25 WHERE name = 'John';<br><br>
+                    
+                    -- Delete data<br>
+                    DELETE FROM users WHERE name = 'John';
+                </code>
+            </div>
+
+            <div class="example">
+                <h3>DQL (Data Query Language)</h3>
+                <code>
+                    -- Select all columns<br>
+                    SELECT * FROM users;<br><br>
+                    
+                    -- Select specific columns<br>
+                    SELECT name, email FROM users;<br><br>
+                    
+                    -- Filter results<br>
+                    SELECT * FROM users WHERE age > 21;<br><br>
+                    
+                    -- Sort results<br>
+                    SELECT * FROM users ORDER BY name ASC;
+                </code>
+            </div>
+
+            <h2>SQL Operators</h2>
+            <ul>
+                <li><strong>Comparison:</strong> =, >, <, >=, <=, <></li>
+                <li><strong>Logical:</strong> AND, OR, NOT</li>
+                <li><strong>Special:</strong> BETWEEN, IN, LIKE, IS NULL</li>
+            </ul>
+
+            <h2>SQL Functions</h2>
+            <ul>
+                <li><strong>Aggregate:</strong> COUNT(), SUM(), AVG(), MAX(), MIN()</li>
+                <li><strong>String:</strong> CONCAT(), SUBSTRING(), UPPER(), LOWER()</li>
+                <li><strong>Date:</strong> NOW(), DATE(), YEAR(), MONTH(), DAY()</li>
+            </ul>
+
+            <div class="note">
+                <p><strong>Best Practices:</strong></p>
+                <ul>
+                    <li>Use meaningful table and column names</li>
+                    <li>Always use proper data types</li>
+                    <li>Include appropriate constraints</li>
+                    <li>Write clear and maintainable queries</li>
+                    <li>Use indexes for better performance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

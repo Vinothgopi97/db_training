@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Relationships</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="constraints.html">Previous: Constraints</a></li>
+                <li><a href="queries.html">Next: Queries</a></li>
+            </ul>
+        </nav>
+
+        <h1>Database Relationships</h1>
+
+        <div class="topic-section">
+            <h2>Types of Relationships</h2>
+            
+            <div class="example">
+                <h3>1. One-to-One (1:1)</h3>
+                <p>Each record in one table is related to exactly one record in another table.</p>
+                <code>
+                    CREATE TABLE users (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        username VARCHAR(50)<br>
+                    );<br><br>
+                    
+                    CREATE TABLE user_profiles (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        user_id INTEGER UNIQUE REFERENCES users(id),<br>
+                        bio TEXT<br>
+                    );
+                </code>
+            </div>
+
+            <div class="example">
+                <h3>2. One-to-Many (1:N)</h3>
+                <p>One record in a table can be related to multiple records in another table.</p>
+                <code>
+                    CREATE TABLE authors (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        name VARCHAR(100)<br>
+                    );<br><br>
+                    
+                    CREATE TABLE books (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        title VARCHAR(200),<br>
+                        author_id INTEGER REFERENCES authors(id)<br>
+                    );
+                </code>
+            </div>
+
+            <div class="example">
+                <h3>3. Many-to-Many (N:M)</h3>
+                <p>Multiple records in one table can be related to multiple records in another table.</p>
+                <code>
+                    CREATE TABLE students (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        name VARCHAR(100)<br>
+                    );<br><br>
+                    
+                    CREATE TABLE courses (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        title VARCHAR(200)<br>
+                    );<br><br>
+                    
+                    CREATE TABLE student_courses (<br>
+                        student_id INTEGER REFERENCES students(id),<br>
+                        course_id INTEGER REFERENCES courses(id),<br>
+                        PRIMARY KEY (student_id, course_id)<br>
+                    );
+                </code>
+            </div>
+
+            <h2>Implementing Relationships</h2>
+            <ul>
+                <li><strong>Foreign Keys:</strong> Used to establish relationships between tables</li>
+                <li><strong>Junction Tables:</strong> Used for many-to-many relationships</li>
+                <li><strong>Cascading Actions:</strong> Automatic actions on related records</li>
+            </ul>
+
+            <div class="example">
+                <h3>Cascading Actions</h3>
+                <code>
+                    CREATE TABLE orders (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        user_id INTEGER REFERENCES users(id)<br>
+                            ON DELETE CASCADE<br>
+                            ON UPDATE CASCADE,<br>
+                        order_date DATE<br>
+                    );
+                </code>
+            </div>
+
+            <h2>Best Practices</h2>
+            <ul>
+                <li>Choose the appropriate relationship type based on business rules</li>
+                <li>Use meaningful names for foreign key columns</li>
+                <li>Consider referential integrity constraints</li>
+                <li>Plan for data modification scenarios</li>
+                <li>Consider indexing foreign key columns</li>
+            </ul>
+
+            <div class="note">
+                <p><strong>Common Pitfalls to Avoid:</strong></p>
+                <ul>
+                    <li>Over-normalizing tables</li>
+                    <li>Creating unnecessary relationships</li>
+                    <li>Ignoring referential integrity</li>
+                    <li>Not considering the impact on performance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

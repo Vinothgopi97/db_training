@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Relational Model</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="basic-concepts.html">Previous: Basic Concepts</a></li>
+                <li><a href="sql-basics.html">Next: SQL Basics</a></li>
+            </ul>
+        </nav>
+
+        <h1>The Relational Model</h1>
+
+        <div class="topic-section">
+            <h2>Understanding the Relational Model</h2>
+            <p>The relational model, developed by E.F. Codd in 1970, represents data as relations or tables. Each relation consists of tuples (rows) and attributes (columns).</p>
+
+            <h2>Key Components</h2>
+            <ul>
+                <li><strong>Relations (Tables):</strong> A set of tuples that have the same attributes</li>
+                <li><strong>Tuples (Rows):</strong> A single record in a relation</li>
+                <li><strong>Attributes (Columns):</strong> The properties or fields that define a relation</li>
+                <li><strong>Domain:</strong> The set of allowable values for an attribute</li>
+            </ul>
+
+            <h2>Properties of Relations</h2>
+            <ul>
+                <li><strong>Atomic Values:</strong> Each cell contains exactly one value</li>
+                <li><strong>Unique Rows:</strong> No duplicate tuples allowed</li>
+                <li><strong>Column Order Irrelevant:</strong> The order of columns doesn't matter</li>
+                <li><strong>Row Order Irrelevant:</strong> The order of rows doesn't matter</li>
+            </ul>
+
+            <div class="example">
+                <h3>Example of Related Tables</h3>
+                <h4>Customers Table</h4>
+                <table>
+                    <tr>
+                        <th>CustomerID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>john@example.com</td>
+                    </tr>
+                </table>
+
+                <h4>Orders Table</h4>
+                <table>
+                    <tr>
+                        <th>OrderID</th>
+                        <th>CustomerID</th>
+                        <th>OrderDate</th>
+                    </tr>
+                    <tr>
+                        <td>101</td>
+                        <td>1</td>
+                        <td>2025-10-29</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>Keys in Relational Model</h2>
+            <ul>
+                <li><strong>Primary Key:</strong> Uniquely identifies each tuple in a relation</li>
+                <li><strong>Foreign Key:</strong> References a primary key in another relation</li>
+                <li><strong>Candidate Key:</strong> Attributes that could serve as a primary key</li>
+                <li><strong>Composite Key:</strong> Multiple attributes together forming a unique identifier</li>
+            </ul>
+
+            <div class="note">
+                <p><strong>Database Normalization:</strong><br>
+                The process of organizing data to minimize redundancy and dependency by:</p>
+                <ul>
+                    <li>Eliminating duplicated data</li>
+                    <li>Ensuring data dependencies make sense</li>
+                    <li>Making the database more efficient</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

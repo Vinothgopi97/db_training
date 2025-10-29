@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL Introduction</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="sql-basics.html">Previous: SQL Basics</a></li>
+                <li><a href="data-types.html">Next: Data Types</a></li>
+            </ul>
+        </nav>
+
+        <h1>Introduction to PostgreSQL</h1>
+
+        <div class="topic-section">
+            <h2>What is PostgreSQL?</h2>
+            <p>PostgreSQL is a powerful, open-source object-relational database system with over 30 years of active development. It's known for reliability, feature robustness, and performance.</p>
+
+            <h2>Key Features</h2>
+            <ul>
+                <li><strong>ACID Compliance:</strong> Atomicity, Consistency, Isolation, Durability</li>
+                <li><strong>Complex Queries:</strong> Supports complex queries and joins</li>
+                <li><strong>Custom Types:</strong> Create custom data types</li>
+                <li><strong>Table Inheritance:</strong> Tables can inherit characteristics from other tables</li>
+                <li><strong>Multi-Version Concurrency Control (MVCC):</strong> Handles multiple users efficiently</li>
+                <li><strong>Extensions:</strong> Expandable functionality through extensions</li>
+            </ul>
+
+            <div class="example">
+                <h3>Basic PostgreSQL Commands</h3>
+                <code>
+                    -- Connect to PostgreSQL<br>
+                    psql -U username -d database_name<br><br>
+                    
+                    -- Create a new database<br>
+                    CREATE DATABASE mydatabase;<br><br>
+                    
+                    -- List all databases<br>
+                    \l<br><br>
+                    
+                    -- Connect to a database<br>
+                    \c mydatabase<br><br>
+                    
+                    -- List all tables<br>
+                    \dt
+                </code>
+            </div>
+
+            <h2>Advantages of PostgreSQL</h2>
+            <ul>
+                <li><strong>Open Source:</strong> Free to use and modify</li>
+                <li><strong>Extensible:</strong> Can add custom functions and data types</li>
+                <li><strong>Standards Compliant:</strong> Follows SQL standards</li>
+                <li><strong>Community Support:</strong> Large active community</li>
+                <li><strong>Enterprise-Ready:</strong> Suitable for large-scale applications</li>
+            </ul>
+
+            <h2>Common Use Cases</h2>
+            <ul>
+                <li>Web Applications</li>
+                <li>Geographic Information Systems (GIS)</li>
+                <li>Complex Data Analysis</li>
+                <li>Financial Systems</li>
+                <li>Scientific Research</li>
+            </ul>
+
+            <div class="note">
+                <p><strong>Getting Started:</strong><br>
+                To begin using PostgreSQL:</p>
+                <ol>
+                    <li>Install PostgreSQL from the official website</li>
+                    <li>Configure the database server</li>
+                    <li>Create your first database</li>
+                    <li>Connect using psql or a GUI tool</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

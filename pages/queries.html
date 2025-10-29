@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL Queries</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="relationships.html">Previous: Relationships</a></li>
+            </ul>
+        </nav>
+
+        <h1>PostgreSQL Queries</h1>
+
+        <div class="topic-section">
+            <h2>Basic Queries</h2>
+            
+            <div class="example">
+                <h3>SELECT Queries</h3>
+                <code>
+                    -- Basic select<br>
+                    SELECT * FROM users;<br><br>
+                    
+                    -- Select specific columns<br>
+                    SELECT name, email FROM users;<br><br>
+                    
+                    -- Select with conditions<br>
+                    SELECT * FROM users WHERE age >= 18;<br><br>
+                    
+                    -- Select with sorting<br>
+                    SELECT * FROM users ORDER BY name ASC;
+                </code>
+            </div>
+
+            <h2>Joins</h2>
+            
+            <div class="example">
+                <h3>Different Types of Joins</h3>
+                <code>
+                    -- Inner Join<br>
+                    SELECT orders.id, users.name<br>
+                    FROM orders<br>
+                    INNER JOIN users ON orders.user_id = users.id;<br><br>
+                    
+                    -- Left Join<br>
+                    SELECT users.name, orders.id<br>
+                    FROM users<br>
+                    LEFT JOIN orders ON users.id = orders.user_id;<br><br>
+                    
+                    -- Right Join<br>
+                    SELECT users.name, orders.id<br>
+                    FROM users<br>
+                    RIGHT JOIN orders ON users.id = orders.user_id;<br><br>
+                    
+                    -- Full Outer Join<br>
+                    SELECT users.name, orders.id<br>
+                    FROM users<br>
+                    FULL OUTER JOIN orders ON users.id = orders.user_id;
+                </code>
+            </div>
+
+            <h2>Aggregate Functions</h2>
+            
+            <div class="example">
+                <code>
+                    -- Count total records<br>
+                    SELECT COUNT(*) FROM users;<br><br>
+                    
+                    -- Sum values<br>
+                    SELECT SUM(amount) FROM orders;<br><br>
+                    
+                    -- Average value<br>
+                    SELECT AVG(age) FROM users;<br><br>
+                    
+                    -- Group By with aggregates<br>
+                    SELECT category, COUNT(*)<br>
+                    FROM products<br>
+                    GROUP BY category;
+                </code>
+            </div>
+
+            <h2>Subqueries</h2>
+            
+            <div class="example">
+                <code>
+                    -- Subquery in WHERE clause<br>
+                    SELECT name<br>
+                    FROM users<br>
+                    WHERE id IN (SELECT user_id FROM orders);<br><br>
+                    
+                    -- Subquery in FROM clause<br>
+                    SELECT avg_age<br>
+                    FROM (SELECT AVG(age) as avg_age FROM users) as subq;
+                </code>
+            </div>
+
+            <h2>Common Table Expressions (CTE)</h2>
+            
+            <div class="example">
+                <code>
+                    WITH active_users AS (<br>
+                        SELECT * FROM users WHERE status = 'active'<br>
+                    )<br>
+                    SELECT * FROM active_users<br>
+                    WHERE age > 25;
+                </code>
+            </div>
+
+            <h2>Advanced Query Features</h2>
+            <ul>
+                <li><strong>Window Functions:</strong> Functions that perform calculations across a set of rows</li>
+                <li><strong>CASE Statements:</strong> Conditional logic in queries</li>
+                <li><strong>UNION/INTERSECT:</strong> Combining results from multiple queries</li>
+                <li><strong>Views:</strong> Virtual tables based on query results</li>
+            </ul>
+
+            <div class="note">
+                <p><strong>Query Optimization Tips:</strong></p>
+                <ul>
+                    <li>Use appropriate indexes</li>
+                    <li>Avoid SELECT *</li>
+                    <li>Use EXPLAIN ANALYZE to understand query performance</li>
+                    <li>Write efficient JOIN conditions</li>
+                    <li>Use appropriate WHERE clauses</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
