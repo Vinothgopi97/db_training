@@ -10,27 +10,84 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    transition: margin-left 0.2s ease;
 }
 
-nav {
+/* Sidebar navigation (left) */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    padding: 24px 16px;
     background-color: #f4f4f4;
-    padding: 1rem;
-    margin-bottom: 2rem;
+    overflow-y: auto;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.03);
 }
 
-nav ul {
-    list-style-type: none;
+.sidebar ol {
+    margin: 0;
     padding: 0;
+    counter-reset: nav-counter;
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 1rem;
+.sidebar li {
+    list-style: none;
+    margin-bottom: 0.6rem;
+    counter-increment: nav-counter;
 }
 
-nav ul li a {
+/* show the number to the left of the link text */
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     text-decoration: none;
     color: #333;
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    background: white;
+}
+
+.sidebar a::before {
+    content: counter(nav-counter) ".";
+    display: inline-block;
+    width: 28px;
+    text-align: right;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.sidebar a:hover {
+    background: #e9f2fb;
+}
+
+/* keep visited links visible */
+.sidebar a:visited {
+    color: #333;
+}
+
+/* active page styling */
+.sidebar a.active,
+.sidebar a[aria-current="page"] {
+    background: #d0eafc;
+    font-weight: 700;
+}
+
+/* ensure .btn stays visible after click */
+.btn:visited {
+    color: #fff;
+}
+
+.btn:active, .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52,152,219,0.12);
+}
+
+/* push page content to the right to make room for sidebar */
+.has-sidebar .container {
+    margin-left: 300px;
 }
 
 h1 {

@@ -6,14 +6,25 @@
   <title>Transactions & ACID</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body>
-  <div class="container">
-    <nav>
-      <ul>
+<body class="has-sidebar">
+    <div class="container">
+    <nav class="sidebar">
+      <ol>
         <li><a href="../index.html">Home</a></li>
-        <li><a href="triggers.html">Previous: Triggers</a></li>
-        <li><a href="indexing.html">Next: Indexing & Performance</a></li>
-      </ul>
+        <li><a href="basic-concepts.html">Basic Concepts</a></li>
+        <li><a href="relational-model.html">Relational Model</a></li>
+        <li><a href="sql-basics.html">SQL Basics</a></li>
+        <li><a href="postgresql-intro.html">PostgreSQL Introduction</a></li>
+        <li><a href="data-types.html">Data Types</a></li>
+        <li><a href="constraints.html">Constraints</a></li>
+        <li><a href="relationships.html">Relationships</a></li>
+        <li><a href="queries.html">Queries</a></li>
+        <li><a href="joins-deep.html">Joins (Deep Dive)</a></li>
+        <li><a href="keys.html">Keys</a></li>
+        <li><a href="triggers.html">Triggers</a></li>
+        <li><a href="indexing.html">Indexing & Performance</a></li>
+        <li><a href="advanced-postgres.html">Advanced PostgreSQL</a></li>
+      </ol>
     </nav>
 
     <h1>Transactions & ACID</h1>
@@ -62,6 +73,26 @@
         <a class="btn" href="indexing.html">Next: Indexing & Performance</a>
       </div>
     </div>
+    <script>
+      (function(){
+        var links = document.querySelectorAll('.sidebar a');
+        if(!links) return;
+        var path = location.pathname || '';
+        var currentFile = path.split('/').pop() || 'index.html';
+        if (!currentFile) currentFile = 'index.html';
+        links.forEach(function(a){
+          try{
+            var href = a.getAttribute('href') || '';
+            var hrefFile = href.split('/').pop() || '';
+            if (hrefFile === '') hrefFile = 'index.html';
+            if (hrefFile === currentFile) {
+              a.classList.add('active');
+              a.setAttribute('aria-current','page');
+            }
+          } catch(e){}
+        });
+      })();
+    </script>
   </div>
 </body>
 </html>

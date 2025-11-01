@@ -6,12 +6,13 @@
     <title>Relational Database Concepts & PostgreSQL Tutorial</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="has-sidebar">
     <div class="container">
         <h1>Relational Database Concepts & PostgreSQL Tutorial</h1>
         
-        <nav>
-            <ul>
+        <nav class="sidebar">
+            <ol>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="pages/basic-concepts.html">Basic Concepts</a></li>
                 <li><a href="pages/relational-model.html">Relational Model</a></li>
                 <li><a href="pages/sql-basics.html">SQL Basics</a></li>
@@ -26,7 +27,7 @@
                 <li><a href="pages/transactions.html">Transactions & ACID</a></li>
                 <li><a href="pages/indexing.html">Indexing & Performance</a></li>
                 <li><a href="pages/advanced-postgres.html">Advanced PostgreSQL</a></li>
-            </ul>
+            </ol>
         </nav>
 
         <div class="topic-section">
@@ -48,5 +49,38 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+                    <script>
+                        (function(){
+                            var links = document.querySelectorAll('.sidebar a');
+                            if(!links) return;
+                            function fileFromHref(h){ if(!h) return 'index.html'; var parts=h.split('/'); var f=parts.pop()||'index.html'; return f; }
+                            var path = location.pathname || '';
+                            var currentFile = path.split('/').pop() || 'index.html';
+                            if (!currentFile) currentFile = 'index.html';
+
+                            // attach click handlers to store user's selection before navigation
+                            links.forEach(function(a){
+                                var href = a.getAttribute('href') || '';
+                                var hrefFile = fileFromHref(href);
+                                a.addEventListener('click', function(){
+                                    try{ localStorage.setItem('sidebar-active', hrefFile); }catch(e){}
+                                });
+                            });
+
+                            // apply active state: prefer matching current filename, otherwise stored value
+                            var applied = false;
+                            links.forEach(function(a){
+                                var hrefFile = fileFromHref(a.getAttribute('href'));
+                                if (hrefFile === currentFile){ a.classList.add('active'); a.setAttribute('aria-current','page'); applied = true; }
+                            });
+                            if(!applied){
+                                var stored = null;
+                                try{ stored = localStorage.getItem('sidebar-active'); }catch(e){}
+                                if(stored){
+                                    links.forEach(function(a){ if(fileFromHref(a.getAttribute('href')) === stored){ a.classList.add('active'); a.setAttribute('aria-current','page'); applied = true; } });
+                                }
+                            }
+                        })();
+                    </script>
+        </body>
+    </html>
