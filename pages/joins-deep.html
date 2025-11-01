@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joins (Deep Dive)</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="queries.html">Previous: Queries</a></li>
+      </ul>
+    </nav>
+
+    <h1>Joins — Deep Dive</h1>
+
+    <div class="topic-section">
+      <h2>What is a JOIN?</h2>
+      <p>A JOIN combines rows from two or more tables based on a related column between them. Joins let you query related data spread across multiple tables.</p>
+
+      <h2>Types of Joins</h2>
+      <ul>
+        <li><strong>INNER JOIN</strong> — returns rows when there is a match in both tables.</li>
+        <li><strong>LEFT (OUTER) JOIN</strong> — returns all rows from the left table, and matched rows from the right table; unmatched right-side columns are NULL.</li>
+        <li><strong>RIGHT (OUTER) JOIN</strong> — returns all rows from the right table, and matched rows from the left table.</li>
+        <li><strong>FULL (OUTER) JOIN</strong> — returns rows when there is a match in one of the tables. Unmatched columns are NULL.</li>
+        <li><strong>CROSS JOIN</strong> — Cartesian product; pairs every row from table A with every row from table B.</li>
+        <li><strong>SELF JOIN</strong> — joining a table to itself to compare rows within the same table.</li>
+      </ul>
+
+      <h2>Examples</h2>
+      <div class="example">
+        <h3>Schema</h3>
+        <code>
+          CREATE TABLE customers (id SERIAL PRIMARY KEY, name TEXT);
+          CREATE TABLE orders (id SERIAL PRIMARY KEY, customer_id INTEGER REFERENCES customers(id), amount NUMERIC);
+        </code>
+
+        <h3>INNER JOIN</h3>
+        <code>
+          SELECT c.id, c.name, o.id AS order_id, o.amount
+          FROM customers c
+          INNER JOIN orders o ON o.customer_id = c.id;
+        </code>
+
+        <h3>LEFT JOIN (customers with their orders, include customers with no orders)</h3>
+        <code>
+          SELECT c.name, o.id, o.amount
+          FROM customers c
+          LEFT JOIN orders o ON o.customer_id = c.id;
+        </code>
+
+        <h3>CROSS JOIN (cartesian product; useful for combinations)</h3>
+        <code>
+          SELECT c.name, p.name
+          FROM customers c
+          CROSS JOIN products p;
+        </code>
+      </div>
+
+      <h2>Join Conditions & Best Practices</h2>
+      <ul>
+        <li>Always join on indexed columns (usually primary keys / foreign keys) for performance.</li>
+        <li>Be explicit with join predicates: ON a.id = b.a_id rather than putting conditions in WHERE for outer joins.</li>
+        <li>Use LEFT JOIN when you need to keep all rows from the left side even if there's no match.</li>
+        <li>Avoid unnecessary CROSS JOINs unless you need combinations; they can explode result size.</li>
+      </ul>
+
+      <h2>Join Performance</h2>
+      <ul>
+        <li>Indexes on join columns dramatically improve performance.</li>
+        <li>Use EXPLAIN (ANALYZE) to inspect join plans (nested loop, hash join, merge join).</li>
+        <li>For large datasets, consider limiting results, filtering early (push predicates into the join), and ensuring statistics (ANALYZE) are up to date.</li>
+      </ul>
+
+      <div class="note">
+        <p>Example: Use <code>EXPLAIN ANALYZE</code> to see how PostgreSQL chooses a join strategy and how long queries actually take.</p>
+      </div>
+      <div class="nav-buttons">
+        <a class="btn" href="keys.html">Next: Keys</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

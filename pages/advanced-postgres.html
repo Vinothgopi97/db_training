@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanced PostgreSQL</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="indexing.html">Previous: Indexing & Performance</a></li>
+      </ul>
+    </nav>
+
+    <h1>Advanced PostgreSQL Features</h1>
+
+    <div class="topic-section">
+      <h2>Extensions</h2>
+      <p>PostgreSQL supports extensions to add functionality. Common extensions:</p>
+      <ul>
+        <li><strong>pg_trgm</strong> — trigram matching for similarity search.</li>
+        <li><strong>postgis</strong> — spatial geometry and GIS support.</li>
+        <li><strong>pg_stat_statements</strong> — track execution statistics for queries.</li>
+      </ul>
+
+      <h2>Partitioning</h2>
+      <p>Table partitioning helps manage very large tables by splitting them into smaller pieces. Helpful for time-series and large datasets.</p>
+
+      <h2>Full-Text Search</h2>
+      <p>Postgres has built-in full-text search with tsvector/tsquery types and appropriate indexes (GIN, GiST).</p>
+
+      <h2>JSONB & Document Capabilities</h2>
+      <p><code>JSONB</code> provides efficient storage and indexing for semi-structured data. Combine relational and document approaches in the same database.</p>
+
+      <h2>Logical Replication & WAL</h2>
+      <p>Use logical replication for selective replication of changes between servers. PostgreSQL's WAL (write-ahead log) is core to durability and replication.</p>
+
+      <h2>Monitoring & Observability</h2>
+      <ul>
+        <li>Use <code>pg_stat_activity</code> and <code>pg_stat_statements</code> to monitor queries and performance.</li>
+        <li>Use tools like pgAdmin, pganalyze, or Prometheus exporters for observability.</li>
+      </ul>
+
+      <h2>Security</h2>
+      <ul>
+        <li>Use roles and GRANT/REVOKE for permission management.</li>
+        <li>Use SSL/TLS for connections and consider row-level security (RLS) for fine-grained access control.</li>
+      </ul>
+
+      <div class="note">
+        <p>Advanced features are powerful—introduce them progressively and test thoroughly in staging before production use.</p>
+      </div>
+      <div class="nav-buttons">
+        <a class="btn" href="../index.html">Next: Home</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

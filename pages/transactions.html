@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transactions & ACID</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="triggers.html">Previous: Triggers</a></li>
+        <li><a href="indexing.html">Next: Indexing & Performance</a></li>
+      </ul>
+    </nav>
+
+    <h1>Transactions & ACID</h1>
+
+    <div class="topic-section">
+      <h2>What is a Transaction?</h2>
+      <p>A transaction is a sequence of operations performed as a single logical unit of work. Transactions ensure consistent and reliable updates to the database.</p>
+
+      <h2>ACID Properties</h2>
+      <ul>
+        <li><strong>Atomicity:</strong> All operations succeed or none do.</li>
+        <li><strong>Consistency:</strong> The database moves from one valid state to another, preserving constraints.</li>
+        <li><strong>Isolation:</strong> Concurrent transactions don't interfere—results appear as if executed serially.</li>
+        <li><strong>Durability:</strong> Once committed, transaction changes persist even after crashes.</li>
+      </ul>
+
+      <h2>Transaction Control</h2>
+      <div class="example">
+        <code>
+          -- Explicit transaction
+          BEGIN;
+          UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+          UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+          COMMIT;  -- or ROLLBACK to undo
+        </code>
+      </div>
+
+      <h2>Isolation Levels (PostgreSQL)</h2>
+      <ul>
+        <li><strong>READ UNCOMMITTED</strong> — behaves like READ COMMITTED in PostgreSQL.</li>
+        <li><strong>READ COMMITTED</strong> — default; a statement sees only committed data at the time it begins.</li>
+        <li><strong>REPEATABLE READ</strong> — all statements in a transaction see a snapshot taken at the start of the transaction.</li>
+        <li><strong>SERIALIZABLE</strong> — strongest isolation; transactions behave as if executed serially (may throw serialization errors requiring retry).</li>
+      </ul>
+
+      <h2>MVCC and Locking</h2>
+      <p>PostgreSQL uses MVCC (Multi-Version Concurrency Control), which provides each transaction a snapshot of the database to reduce lock contention. Writes acquire locks; readers generally do not block writers.</p>
+
+      <h2>Practical Tips</h2>
+      <ul>
+        <li>Keep transactions short to reduce contention and locks.</li>
+        <li>Catch and retry transactions that fail under SERIALIZABLE isolation.</li>
+        <li>Use appropriate isolation for your workload: READ COMMITTED is enough for many OLTP workloads.</li>
+      </ul>
+      <div class="nav-buttons">
+        <a class="btn" href="indexing.html">Next: Indexing & Performance</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

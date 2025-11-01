@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indexing & Performance</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="transactions.html">Previous: Transactions & ACID</a></li>
+        <li><a href="advanced-postgres.html">Next: Advanced PostgreSQL</a></li>
+      </ul>
+    </nav>
+
+    <h1>Indexing & Performance</h1>
+
+    <div class="topic-section">
+      <h2>Why Indexes?</h2>
+      <p>Indexes speed up data retrieval operations at the cost of additional storage and slower writes. Choose indexes based on query patterns.</p>
+
+      <h2>Common Index Types in PostgreSQL</h2>
+      <ul>
+        <li><strong>B-tree</strong> — default; good for equality and range queries.</li>
+        <li><strong>Hash</strong> — equality only (less commonly used).</li>
+        <li><strong>GIN</strong> — for full-text search and indexing array/JSONB values.</li>
+        <li><strong>GiST</strong> — for geometric data types and more complex queries.</li>
+        <li><strong>BRIN</strong> — for very large tables where data is naturally ordered (e.g., time series).</li>
+      </ul>
+
+      <h2>Creating Indexes</h2>
+      <div class="example">
+        <code>
+          -- Simple b-tree index
+          CREATE INDEX idx_users_email ON users (email);
+
+          -- Composite index
+          CREATE INDEX idx_orders_user_date ON orders (user_id, order_date);
+
+          -- GIN index for JSONB
+          CREATE INDEX idx_products_attrs ON products USING GIN (attributes_jsonb);
+        </code>
+      </div>
+
+      <h2>When Not to Index</h2>
+      <ul>
+        <li>Small tables where full table scans are cheaper.</li>
+        <li>Very high write tables where index overhead hurts performance.</li>
+        <li>Columns with low cardinality (few distinct values).</li>
+      </ul>
+
+      <h2>Monitoring & Tuning</h2>
+      <ul>
+        <li>Use <code>EXPLAIN</code> and <code>EXPLAIN (ANALYZE)</code> to evaluate query plans.</li>
+        <li>Run <code>VACUUM</code> periodically to reclaim space and maintain performance; use <code>VACUUM ANALYZE</code> to update planner statistics.</li>
+        <li>Adjust planner-related settings (costs, work_mem) carefully for complex queries.</li>
+        <li>Consider partitioning large tables to improve manageability and query performance.</li>
+      </ul>
+
+      <div class="note">
+        <p>Always measure before and after adding an index — indexes can improve read performance dramatically but may worsen write throughput.</p>
+      </div>
+      <div class="nav-buttons">
+        <a class="btn" href="advanced-postgres.html">Next: Advanced PostgreSQL</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

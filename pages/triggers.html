@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Triggers in PostgreSQL</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="keys.html">Previous: Keys</a></li>
+      </ul>
+    </nav>
+
+    <h1>Triggers</h1>
+
+    <div class="topic-section">
+      <h2>What is a Trigger?</h2>
+      <p>A trigger is a function that is automatically executed by the database when a specified event occurs on a table (INSERT, UPDATE, DELETE, or TRUNCATE).</p>
+
+      <h2>Trigger Timing</h2>
+      <ul>
+        <li><strong>BEFORE</strong> — Fire before the event (can modify the incoming row).</li>
+        <li><strong>AFTER</strong> — Fire after the event (cannot modify the row being written; good for logging or cascading actions).</li>
+        <li><strong>INSTEAD OF</strong> — Used with views to fire instead of the event.</li>
+      </ul>
+
+      <h2>Row vs Statement Triggers</h2>
+      <ul>
+        <li><strong>FOR EACH ROW</strong> — Trigger fires once per row affected.</li>
+        <li><strong>FOR EACH STATEMENT</strong> — Trigger fires once per statement, regardless of how many rows are affected.</li>
+      </ul>
+
+      <h2>Example: Audit Trigger</h2>
+      <div class="example">
+        <code>
+          CREATE TABLE users (id SERIAL PRIMARY KEY, name TEXT, email TEXT);
+          CREATE TABLE users_audit (id SERIAL PRIMARY KEY, user_id INT, changed_by TEXT, changed_at TIMESTAMP, action TEXT);
+
+          -- Trigger function (plpgsql)
+          CREATE OR REPLACE FUNCTION audit_user_changes()
+          RETURNS TRIGGER AS $$
+          BEGIN
+            IF TG_OP = 'INSERT' THEN
+              INSERT INTO users_audit (user_id, changed_by, changed_at, action)
+              VALUES (NEW.id, current_user, now(), 'INSERT');
+              RETURN NEW;
+            ELSIF TG_OP = 'UPDATE' THEN
+              INSERT INTO users_audit (user_id, changed_by, changed_at, action)
+              VALUES (NEW.id, current_user, now(), 'UPDATE');
+              RETURN NEW;
+            ELSIF TG_OP = 'DELETE' THEN
+              INSERT INTO users_audit (user_id, changed_by, changed_at, action)
+              VALUES (OLD.id, current_user, now(), 'DELETE');
+              RETURN OLD;
+            END IF;
+            RETURN NULL;
+          END;
+          $$ LANGUAGE plpgsql;
+
+          -- Attach trigger
+          CREATE TRIGGER trg_audit_users
+          AFTER INSERT OR UPDATE OR DELETE ON users
+          FOR EACH ROW EXECUTE FUNCTION audit_user_changes();
+        </code>
+      </div>
+
+      <h2>When to Use Triggers</h2>
+      <ul>
+        <li>Audit logging or history tables.</li>
+        <li>Enforcing complex integrity rules not easily expressed with constraints.</li>
+        <li>Synchronizing denormalized data.</li>
+        <li>Automatically updating related tables.</li>
+      </ul>
+
+      <h2>Precautions</h2>
+      <ul>
+        <li>Triggers can hide side-effects and make debugging harder—document them well.</li>
+        <li>Long-running trigger code can hurt write performance.</li>
+        <li>Avoid heavy I/O in triggers; prefer asynchronous processing (e.g., background worker) for expensive tasks.</li>
+      </ul>
+      <div class="nav-buttons">
+        <a class="btn" href="transactions.html">Next: Transactions & ACID</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

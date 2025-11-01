@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Database Keys</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="joins-deep.html">Previous: Joins (Deep Dive)</a></li>
+        <li><a href="triggers.html">Next: Triggers</a></li>
+      </ul>
+    </nav>
+
+    <h1>Keys in Relational Databases</h1>
+
+    <div class="topic-section">
+      <h2>Overview</h2>
+      <p>Keys uniquely identify rows and establish relationships between tables. They are central to relational integrity and query performance.</p>
+
+      <h2>Common Key Types</h2>
+      <ul>
+        <li><strong>Primary Key</strong> — Uniquely identifies each row in a table. Usually enforced with <code>PRIMARY KEY</code>. Cannot be NULL.</li>
+        <li><strong>Foreign Key</strong> — A column (or set of columns) that references a primary key in another table. Enforces referential integrity.</li>
+        <li><strong>Candidate Key</strong> — A column or set of columns that could serve as a primary key (uniqueness holds), one of which is chosen as the primary key.</li>
+        <li><strong>Composite Key</strong> — A key made up of multiple columns that together uniquely identify a row.</li>
+        <li><strong>Surrogate Key</strong> — An artificial key (like SERIAL or UUID) assigned to uniquely identify rows, not derived from application data.</li>
+        <li><strong>Alternate Key</strong> — A candidate key not chosen as the primary key.</li>
+      </ul>
+
+      <h2>Examples</h2>
+      <div class="example">
+        <code>
+          CREATE TABLE users (
+            id SERIAL PRIMARY KEY,     -- surrogate primary key
+            username TEXT UNIQUE,      -- alternate/candidate key
+            email TEXT UNIQUE
+          );
+
+          CREATE TABLE orders (
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES users(id)  -- foreign key
+          );
+
+          -- Composite key example
+          CREATE TABLE enrollment (
+            student_id INTEGER,
+            course_id INTEGER,
+            enrolled_at TIMESTAMP,
+            PRIMARY KEY (student_id, course_id)
+          );
+        </code>
+      </div>
+
+      <h2>Best Practices</h2>
+      <ul>
+        <li>Prefer a single-column surrogate primary key (SERIAL/IDENTITY or UUID) for simplicity, unless natural composite key adds value.</li>
+        <li>Use UNIQUE constraints for natural candidate keys if needed for business rules.</li>
+        <li>Name foreign key constraints for easier debugging and migration.</li>
+        <li>Index foreign key columns when you query by them frequently.</li>
+      </ul>
+
+      <div class="note">
+        <p>Keep in mind: choosing keys affects both data integrity and performance. Consider access patterns and business logic.</p>
+      </div>
+      <div class="nav-buttons">
+        <a class="btn" href="triggers.html">Next: Triggers</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
