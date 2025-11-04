@@ -14,7 +14,7 @@
                 <li><a href="basic-concepts.html">Basic Concepts</a></li>
                 <li><a href="relational-model.html">Relational Model</a></li>
                 <li><a href="sql-basics.html">SQL Basics</a></li>
-                <li><a href="postgresql-intro.html">PostgreSQL Introduction</a></li>
+                <li><a href="postgresql-intro.html">MySQL Introduction</a></li>
                 <li><a href="data-types.html">Data Types</a></li>
                 <li><a href="constraints.html">Constraints</a></li>
                 <li><a href="queries.html">Queries</a></li>
@@ -23,7 +23,7 @@
                 <li><a href="triggers.html">Triggers</a></li>
                 <li><a href="transactions.html">Transactions & ACID</a></li>
                 <li><a href="indexing.html">Indexing & Performance</a></li>
-                <li><a href="advanced-postgres.html">Advanced PostgreSQL</a></li>
+                <li><a href="advanced-postgres.html">Advanced MySQL</a></li>
             </ol>
         </nav>
 
@@ -37,12 +37,12 @@
                 <p>Each record in one table is related to exactly one record in another table.</p>
                 <code>
                     CREATE TABLE users (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         username VARCHAR(50)<br>
                     );<br><br>
                     
                     CREATE TABLE user_profiles (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         user_id INTEGER UNIQUE REFERENCES users(id),<br>
                         bio TEXT<br>
                     );
@@ -54,12 +54,12 @@
                 <p>One record in a table can be related to multiple records in another table.</p>
                 <code>
                     CREATE TABLE authors (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         name VARCHAR(100)<br>
                     );<br><br>
                     
                     CREATE TABLE books (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         title VARCHAR(200),<br>
                         author_id INTEGER REFERENCES authors(id)<br>
                     );
@@ -71,12 +71,12 @@
                 <p>Multiple records in one table can be related to multiple records in another table.</p>
                 <code>
                     CREATE TABLE students (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         name VARCHAR(100)<br>
                     );<br><br>
                     
                     CREATE TABLE courses (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         title VARCHAR(200)<br>
                     );<br><br>
                     
@@ -99,7 +99,7 @@
                 <h3>Cascading Actions</h3>
                 <code>
                     CREATE TABLE orders (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         user_id INTEGER REFERENCES users(id)<br>
                             ON DELETE CASCADE<br>
                             ON UPDATE CASCADE,<br>

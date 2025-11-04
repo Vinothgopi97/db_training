@@ -14,7 +14,7 @@
         <li><a href="basic-concepts.html">Basic Concepts</a></li>
         <li><a href="relational-model.html">Relational Model</a></li>
         <li><a href="sql-basics.html">SQL Basics</a></li>
-        <li><a href="postgresql-intro.html">PostgreSQL Introduction</a></li>
+        <li><a href="postgresql-intro.html">MySQL Introduction</a></li>
         <li><a href="data-types.html">Data Types</a></li>
         <li><a href="constraints.html">Constraints</a></li>
         <li><a href="relationships.html">Relationships</a></li>
@@ -23,7 +23,7 @@
         <li><a href="keys.html">Keys</a></li>
         <li><a href="triggers.html">Triggers</a></li>
         <li><a href="indexing.html">Indexing & Performance</a></li>
-        <li><a href="advanced-postgres.html">Advanced PostgreSQL</a></li>
+        <li><a href="advanced-postgres.html">Advanced MySQL</a></li>
       </ol>
     </nav>
 
@@ -52,16 +52,16 @@
         </code>
       </div>
 
-      <h2>Isolation Levels (PostgreSQL)</h2>
+      <h2>Isolation Levels (MySQL / InnoDB)</h2>
       <ul>
-        <li><strong>READ UNCOMMITTED</strong> — behaves like READ COMMITTED in PostgreSQL.</li>
+        <li><strong>READ UNCOMMITTED</strong> — lowest isolation level; InnoDB typically behaves like READ COMMITTED depending on settings.</li>
         <li><strong>READ COMMITTED</strong> — default; a statement sees only committed data at the time it begins.</li>
         <li><strong>REPEATABLE READ</strong> — all statements in a transaction see a snapshot taken at the start of the transaction.</li>
         <li><strong>SERIALIZABLE</strong> — strongest isolation; transactions behave as if executed serially (may throw serialization errors requiring retry).</li>
       </ul>
 
       <h2>MVCC and Locking</h2>
-      <p>PostgreSQL uses MVCC (Multi-Version Concurrency Control), which provides each transaction a snapshot of the database to reduce lock contention. Writes acquire locks; readers generally do not block writers.</p>
+  <p>MySQL's InnoDB storage engine uses MVCC for non-blocking reads and row-level locking for writes. Behavior can vary between storage engines and versions; consult the MySQL documentation for details and version-specific behavior.</p>
 
       <h2>Practical Tips</h2>
       <ul>

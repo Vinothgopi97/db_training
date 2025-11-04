@@ -14,7 +14,7 @@
                 <li><a href="basic-concepts.html">Basic Concepts</a></li>
                 <li><a href="relational-model.html">Relational Model</a></li>
                 <li><a href="sql-basics.html">SQL Basics</a></li>
-                <li><a href="postgresql-intro.html">PostgreSQL Introduction</a></li>
+                <li><a href="postgresql-intro.html">MySQL Introduction</a></li>
                 <li><a href="data-types.html">Data Types</a></li>
                 <li><a href="relationships.html">Relationships</a></li>
                 <li><a href="queries.html">Queries</a></li>
@@ -23,7 +23,7 @@
                 <li><a href="triggers.html">Triggers</a></li>
                 <li><a href="transactions.html">Transactions & ACID</a></li>
                 <li><a href="indexing.html">Indexing & Performance</a></li>
-                <li><a href="advanced-postgres.html">Advanced PostgreSQL</a></li>
+                <li><a href="advanced-postgres.html">Advanced MySQL</a></li>
             </ol>
         </nav>
 
@@ -39,7 +39,7 @@
                 <h3>1. PRIMARY KEY Constraint</h3>
                 <code>
                     CREATE TABLE users (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         username VARCHAR(50) NOT NULL<br>
                     );
                 </code>
@@ -50,7 +50,7 @@
                 <h3>2. FOREIGN KEY Constraint</h3>
                 <code>
                     CREATE TABLE orders (<br>
-                        order_id SERIAL PRIMARY KEY,<br>
+                        order_id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         user_id INTEGER REFERENCES users(id),<br>
                         order_date DATE<br>
                     );
@@ -62,7 +62,7 @@
                 <h3>3. UNIQUE Constraint</h3>
                 <code>
                     CREATE TABLE users (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         email VARCHAR(255) UNIQUE,<br>
                         username VARCHAR(50)<br>
                     );
@@ -74,7 +74,7 @@
                 <h3>4. NOT NULL Constraint</h3>
                 <code>
                     CREATE TABLE products (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         name VARCHAR(100) NOT NULL,<br>
                         price DECIMAL NOT NULL<br>
                     );
@@ -86,7 +86,7 @@
                 <h3>5. CHECK Constraint</h3>
                 <code>
                     CREATE TABLE products (<br>
-                        id SERIAL PRIMARY KEY,<br>
+                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
                         name VARCHAR(100) NOT NULL,<br>
                         price DECIMAL CHECK (price > 0)<br>
                     );

@@ -14,7 +14,7 @@
         <li><a href="basic-concepts.html">Basic Concepts</a></li>
         <li><a href="relational-model.html">Relational Model</a></li>
         <li><a href="sql-basics.html">SQL Basics</a></li>
-        <li><a href="postgresql-intro.html">PostgreSQL Introduction</a></li>
+  <li><a href="postgresql-intro.html">MySQL Introduction</a></li>
         <li><a href="data-types.html">Data Types</a></li>
         <li><a href="constraints.html">Constraints</a></li>
         <li><a href="relationships.html">Relationships</a></li>
@@ -23,7 +23,7 @@
         <li><a href="triggers.html">Triggers</a></li>
         <li><a href="transactions.html">Transactions & ACID</a></li>
         <li><a href="indexing.html">Indexing & Performance</a></li>
-        <li><a href="advanced-postgres.html">Advanced PostgreSQL</a></li>
+  <li><a href="advanced-postgres.html">Advanced MySQL</a></li>
       </ol>
     </nav>
 
@@ -51,13 +51,13 @@
       <div class="example">
         <code>
           CREATE TABLE users (
-            id SERIAL PRIMARY KEY,     -- surrogate primary key
+            id INT AUTO_INCREMENT PRIMARY KEY,     -- surrogate primary key
             username TEXT UNIQUE,      -- alternate/candidate key
             email TEXT UNIQUE
           );
 
           CREATE TABLE orders (
-            id SERIAL PRIMARY KEY,
+            id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INTEGER REFERENCES users(id)  -- foreign key
           );
 
@@ -73,7 +73,7 @@
 
       <h2>Best Practices</h2>
       <ul>
-        <li>Prefer a single-column surrogate primary key (SERIAL/IDENTITY or UUID) for simplicity, unless natural composite key adds value.</li>
+  <li>Prefer a single-column surrogate primary key (AUTO_INCREMENT/IDENTITY or UUID) for simplicity, unless natural composite key adds value.</li>
         <li>Use UNIQUE constraints for natural candidate keys if needed for business rules.</li>
         <li>Name foreign key constraints for easier debugging and migration.</li>
         <li>Index foreign key columns when you query by them frequently.</li>

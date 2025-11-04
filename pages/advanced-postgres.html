@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Advanced PostgreSQL</title>
+    <title>Advanced MySQL</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body class="has-sidebar">
@@ -14,7 +14,7 @@
         <li><a href="basic-concepts.html">Basic Concepts</a></li>
         <li><a href="relational-model.html">Relational Model</a></li>
         <li><a href="sql-basics.html">SQL Basics</a></li>
-        <li><a href="postgresql-intro.html">PostgreSQL Introduction</a></li>
+    <li><a href="postgresql-intro.html">MySQL Introduction</a></li>
         <li><a href="data-types.html">Data Types</a></li>
         <li><a href="constraints.html">Constraints</a></li>
         <li><a href="relationships.html">Relationships</a></li>
@@ -27,11 +27,11 @@
       </ol>
     </nav>
 
-    <h1>Advanced PostgreSQL Features</h1>
+      <h1>Advanced MySQL Features</h1>
 
     <div class="topic-section">
       <h2>Extensions</h2>
-      <p>PostgreSQL supports extensions to add functionality. Common extensions:</p>
+        <p>MySQL supports plugins and storage engines to extend functionality. Common add-ons and features:</p>
       <ul>
         <li><strong>pg_trgm</strong> — trigram matching for similarity search.</li>
         <li><strong>postgis</strong> — spatial geometry and GIS support.</li>
@@ -42,13 +42,13 @@
       <p>Table partitioning helps manage very large tables by splitting them into smaller pieces. Helpful for time-series and large datasets.</p>
 
       <h2>Full-Text Search</h2>
-      <p>Postgres has built-in full-text search with tsvector/tsquery types and appropriate indexes (GIN, GiST).</p>
+    <p>MySQL provides full-text search (especially in MyISAM and InnoDB for certain versions) and other specialized indexing features.</p>
 
       <h2>JSONB & Document Capabilities</h2>
       <p><code>JSONB</code> provides efficient storage and indexing for semi-structured data. Combine relational and document approaches in the same database.</p>
 
       <h2>Logical Replication & WAL</h2>
-      <p>Use logical replication for selective replication of changes between servers. PostgreSQL's WAL (write-ahead log) is core to durability and replication.</p>
+    <p>Use MySQL replication (statement-based, row-based, or mixed) and Group Replication for HA. MySQL's binary log (binlog) is core to replication and change capture.</p>
 
       <h2>Monitoring & Observability</h2>
       <ul>

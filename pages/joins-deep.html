@@ -14,7 +14,7 @@
         <li><a href="basic-concepts.html">Basic Concepts</a></li>
         <li><a href="relational-model.html">Relational Model</a></li>
         <li><a href="sql-basics.html">SQL Basics</a></li>
-        <li><a href="postgresql-intro.html">PostgreSQL Introduction</a></li>
+  <li><a href="postgresql-intro.html">MySQL Introduction</a></li>
         <li><a href="data-types.html">Data Types</a></li>
         <li><a href="constraints.html">Constraints</a></li>
         <li><a href="relationships.html">Relationships</a></li>
@@ -23,7 +23,7 @@
         <li><a href="triggers.html">Triggers</a></li>
         <li><a href="transactions.html">Transactions & ACID</a></li>
         <li><a href="indexing.html">Indexing & Performance</a></li>
-        <li><a href="advanced-postgres.html">Advanced PostgreSQL</a></li>
+  <li><a href="advanced-postgres.html">Advanced MySQL</a></li>
       </ol>
     </nav>
 
@@ -51,8 +51,8 @@
       <div class="example">
         <h3>Schema</h3>
         <code>
-          CREATE TABLE customers (id SERIAL PRIMARY KEY, name TEXT);
-          CREATE TABLE orders (id SERIAL PRIMARY KEY, customer_id INTEGER REFERENCES customers(id), amount NUMERIC);
+          CREATE TABLE customers (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));
+          CREATE TABLE orders (id INT AUTO_INCREMENT PRIMARY KEY, customer_id INTEGER, amount DECIMAL(10,2));
         </code>
 
         <h3>INNER JOIN</h3>
@@ -93,7 +93,7 @@
       </ul>
 
       <div class="note">
-        <p>Example: Use <code>EXPLAIN ANALYZE</code> to see how PostgreSQL chooses a join strategy and how long queries actually take.</p>
+  <p>Example: Use <code>EXPLAIN</code> (or <code>EXPLAIN ANALYZE</code> on newer MySQL versions) to see how MySQL chooses a join strategy and how long queries take.</p>
       </div>
       <div class="nav-buttons">
         <a class="btn" href="keys.html">Next: Keys</a>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostgreSQL Introduction</title>
+        <title>MySQL Introduction</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body class="has-sidebar">
@@ -23,15 +23,15 @@
                 <li><a href="triggers.html">Triggers</a></li>
                 <li><a href="transactions.html">Transactions & ACID</a></li>
                 <li><a href="indexing.html">Indexing & Performance</a></li>
-                <li><a href="advanced-postgres.html">Advanced PostgreSQL</a></li>
+                <li><a href="advanced-postgres.html">Advanced MySQL</a></li>
             </ol>
         </nav>
 
-        <h1>Introduction to PostgreSQL</h1>
+    <h1>Introduction to MySQL</h1>
 
         <div class="topic-section">
-            <h2>What is PostgreSQL?</h2>
-            <p>PostgreSQL is a powerful, open-source object-relational database system with over 30 years of active development. It's known for reliability, feature robustness, and performance.</p>
+            <h2>What is MySQL?</h2>
+            <p>MySQL is a widely-used open-source relational database management system known for ease of use, performance, and broad ecosystem support. It's commonly used for web applications and supports storage engines such as InnoDB with ACID-compliant transactions.</p>
 
             <h2>Key Features</h2>
             <ul>
@@ -44,26 +44,27 @@
             </ul>
 
             <div class="example">
-                <h3>Basic PostgreSQL Commands</h3>
+                <h3>Basic MySQL Commands</h3>
                 <code>
-                    -- Connect to PostgreSQL<br>
-                    psql -U username -d database_name<br><br>
-                    
+                    -- Connect to MySQL client and open database<br>
+                    mysql -h localhost -u root -p
+                    USE mydatabase;<br><br>
+
                     -- Create a new database<br>
                     CREATE DATABASE mydatabase;<br><br>
-                    
+
                     -- List all databases<br>
-                    \l<br><br>
-                    
-                    -- Connect to a database<br>
-                    \c mydatabase<br><br>
-                    
+                    SHOW DATABASES;<br><br>
+
+                    -- Connect to a database (inside mysql client)<br>
+                    USE mydatabase;<br><br>
+
                     -- List all tables<br>
-                    \dt
+                    SHOW TABLES;
                 </code>
             </div>
 
-            <h2>Advantages of PostgreSQL</h2>
+            <h2>Advantages of MySQL</h2>
             <ul>
                 <li><strong>Open Source:</strong> Free to use and modify</li>
                 <li><strong>Extensible:</strong> Can add custom functions and data types</li>
@@ -83,12 +84,12 @@
 
             <div class="note">
                 <p><strong>Getting Started:</strong><br>
-                To begin using PostgreSQL:</p>
+                To begin using MySQL:</p>
                 <ol>
-                    <li>Install PostgreSQL from the official website</li>
+                    <li>Install MySQL from the official website or via your package manager (MySQL Community Server)</li>
                     <li>Configure the database server</li>
                     <li>Create your first database</li>
-                    <li>Connect using psql or a GUI tool</li>
+                    <li>Connect using the <code>mysql</code> client or a GUI tool</li>
                 </ol>
             </div>
         </div>

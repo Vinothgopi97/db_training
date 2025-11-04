@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Triggers in PostgreSQL</title>
+  <title>Triggers in MySQL</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body class="has-sidebar">
@@ -14,7 +14,7 @@
         <li><a href="basic-concepts.html">Basic Concepts</a></li>
         <li><a href="relational-model.html">Relational Model</a></li>
         <li><a href="sql-basics.html">SQL Basics</a></li>
-        <li><a href="postgresql-intro.html">PostgreSQL Introduction</a></li>
+  <li><a href="postgresql-intro.html">MySQL Introduction</a></li>
         <li><a href="data-types.html">Data Types</a></li>
         <li><a href="constraints.html">Constraints</a></li>
         <li><a href="relationships.html">Relationships</a></li>
@@ -23,7 +23,7 @@
         <li><a href="keys.html">Keys</a></li>
         <li><a href="transactions.html">Transactions & ACID</a></li>
         <li><a href="indexing.html">Indexing & Performance</a></li>
-        <li><a href="advanced-postgres.html">Advanced PostgreSQL</a></li>
+  <li><a href="advanced-postgres.html">Advanced MySQL</a></li>
       </ol>
     </nav>
       <div class="nav-buttons">
@@ -69,8 +69,8 @@
       <h2>Example: Audit Trigger</h2>
       <div class="example">
         <code>
-          CREATE TABLE users (id SERIAL PRIMARY KEY, name TEXT, email TEXT);
-          CREATE TABLE users_audit (id SERIAL PRIMARY KEY, user_id INT, changed_by TEXT, changed_at TIMESTAMP, action TEXT);
+          CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), email VARCHAR(255));
+          CREATE TABLE users_audit (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, changed_by VARCHAR(255), changed_at DATETIME, action VARCHAR(255));
 
           -- Trigger function (plpgsql)
           CREATE OR REPLACE FUNCTION audit_user_changes()
