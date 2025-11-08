@@ -27,124 +27,117 @@
             </ol>
         </nav>
 
-    <h1>MySQL Data Types</h1>
+    <h1>MySQL Data Types — Detailed Guide</h1>
 
         <div class="topic-section">
-            <h2>Numeric Data Types</h2>
-            <table>
-                <tr>
-                    <th>Data Type</th>
-                    <th>Description</th>
-                    <th>Size</th>
-                </tr>
-                <tr>
-                    <td>SMALLINT</td>
-                    <td>Small-range integer</td>
-                    <td>2 bytes</td>
-                </tr>
-                <tr>
-                    <td>INTEGER</td>
-                    <td>Typical choice for integer</td>
-                    <td>4 bytes</td>
-                </tr>
-                <tr>
-                    <td>BIGINT</td>
-                    <td>Large-range integer</td>
-                    <td>8 bytes</td>
-                </tr>
-                <tr>
-                    <td>DECIMAL</td>
-                    <td>User-specified precision</td>
-                    <td>variable</td>
-                </tr>
-                <tr>
-                    <td>NUMERIC</td>
-                    <td>User-specified precision</td>
-                    <td>variable</td>
-                </tr>
-                <tr>
-                    <td>REAL</td>
-                    <td>Variable-precision</td>
-                    <td>4 bytes</td>
-                </tr>
-                <tr>
-                    <td>DOUBLE PRECISION</td>
-                    <td>Variable-precision</td>
-                    <td>8 bytes</td>
-                </tr>
-            </table>
+            <p>This page describes MySQL's common data types and practical guidance for choosing them. Examples use InnoDB (the default transactional engine in modern MySQL).</p>
 
-            <h2>Character Data Types</h2>
-            <table>
-                <tr>
-                    <th>Data Type</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>CHAR(n)</td>
-                    <td>Fixed-length character string</td>
-                </tr>
-                <tr>
-                    <td>VARCHAR(n)</td>
-                    <td>Variable-length character string</td>
-                </tr>
-                <tr>
-                    <td>TEXT</td>
-                    <td>Variable unlimited length</td>
-                </tr>
-            </table>
+            <h2>Numeric types</h2>
+            <p>MySQL provides several integer and fixed/floating point numeric types. Choose integers for whole numbers and DECIMAL for exact monetary values.</p>
+            <ul>
+                <li><strong>TINYINT</strong> (1 byte) — range: -128 to 127 (signed) or 0 to 255 (UNSIGNED). Useful for small counters or boolean-like values. Example: <code>TINYINT(1) BOOL</code> is often used for boolean flags.</li>
+                <li><strong>SMALLINT</strong> (2 bytes) — range: -32768 to 32767 (signed).</li>
+                <li><strong>MEDIUMINT</strong> (3 bytes) — range: -8,388,608 to 8,388,607 (signed).</li>
+                <li><strong>INT / INTEGER</strong> (4 bytes) — the common integer type: -2,147,483,648 to 2,147,483,647 (signed). Use <code>INT UNSIGNED</code> when you need only non-negative values and extra positive range.</li>
+                <li><strong>BIGINT</strong> (8 bytes) — for very large integers (e.g., 64-bit IDs).</li>
+                <li><strong>BIT(n)</strong> — bit-field of up to 64 bits; useful for compact flags.</li>
+                <li><strong>DECIMAL(p,s)</strong> — exact fixed-point numeric. Use for money: <code>DECIMAL(10,2)</code> stores values up to 99999999.99 exactly without floating rounding errors.</li>
+                <li><strong>FLOAT</strong> and <strong>DOUBLE</strong> — approximate floating-point types. Not suitable for monetary values when exactness is required.</li>
+            </ul>
 
-            <h2>Date/Time Data Types</h2>
-            <table>
-                <tr>
-                    <th>Data Type</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>DATE</td>
-                    <td>Date (no time of day)</td>
-                </tr>
-                <tr>
-                    <td>TIME</td>
-                    <td>Time of day (no date)</td>
-                </tr>
-                <tr>
-                    <td>TIMESTAMP</td>
-                    <td>Date and time</td>
-                </tr>
-                <tr>
-                    <td>INTERVAL</td>
-                    <td>Time interval</td>
-                </tr>
-            </table>
-
-            <h2>Boolean Data Type</h2>
             <div class="example">
+                <h3>Numeric examples</h3>
                 <code>
-                    -- Boolean can be: true, false, or null<br>
-                    CREATE TABLE example (<br>
-                        id INT AUTO_INCREMENT PRIMARY KEY,<br>
-                        is_active BOOLEAN DEFAULT true<br>
+                    CREATE TABLE products (
+                      id INT AUTO_INCREMENT PRIMARY KEY,
+                      price DECIMAL(10,2) NOT NULL,
+                      stock INT UNSIGNED DEFAULT 0
                     );
                 </code>
             </div>
 
-            <h2>Special Data Types</h2>
+            <h2>Character and string types</h2>
+            <p>Choose between fixed-length and variable-length character types based on expected usage and storage patterns.</p>
             <ul>
-                <li><strong>UUID:</strong> Universally unique identifiers</li>
-                <li><strong>JSON/JSONB:</strong> JSON data with/without indexing</li>
-                <li><strong>ARRAY:</strong> Array of any data type</li>
-                <li><strong>BYTEA:</strong> Binary data</li>
-                <li><strong>MONEY:</strong> Currency amount</li>
+                <li><strong>CHAR(n)</strong> — fixed-length; padded with spaces to length n. Good for small, predictable sizes (e.g., country codes).</li>
+                <li><strong>VARCHAR(n)</strong> — variable-length string with maximum n. Widely used for names, emails, etc.</li>
+                <li><strong>TEXT types</strong> — TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT — for long unstructured text. Storage and max length increase from TINY -> LONG.</li>
+                <li><strong>BINARY / VARBINARY</strong> — fixed/variable-length binary strings for non-text bytes.</li>
+                <li><strong>BLOB types</strong> — TINYBLOB, BLOB, MEDIUMBLOB, LONGBLOB — store binary large objects (files, images, etc.).</li>
+                <li><strong>ENUM</strong> — enumeration of allowed string values. Efficient and enforces a limited set of choices. Example: <code>ENUM('small','medium','large')</code>.</li>
+                <li><strong>SET</strong> — bitset of predefined string values (multiple values can be stored).</li>
+            </ul>
+
+            <div class="example">
+                <h3>String examples</h3>
+                <code>
+                    CREATE TABLE users (
+                      id INT AUTO_INCREMENT PRIMARY KEY,
+                      username VARCHAR(50) NOT NULL,
+                      bio TEXT,
+                      avatar VARBINARY(1024)
+                    );
+
+                    -- enum example
+                    CREATE TABLE shirts (id INT AUTO_INCREMENT PRIMARY KEY, size ENUM('XS','S','M','L','XL'));
+                </code>
+            </div>
+
+            <h2>Date and time types</h2>
+            <p>MySQL supports a range of date/time types. Use DATETIME when you want a timezone-independent timestamp, TIMESTAMP when you want automatic timezone/UTC handling and automatic initialization/updates (server timezone aware).</p>
+            <ul>
+                <li><strong>DATE</strong> — 'YYYY-MM-DD'</li>
+                <li><strong>TIME</strong> — 'HH:MM:SS' (time of day)</li>
+                <li><strong>DATETIME</strong> — 'YYYY-MM-DD HH:MM:SS' (stores absolute date+time, no timezone conversion)</li>
+                <li><strong>TIMESTAMP</strong> — similar to DATETIME but stored as UTC and converted to the session time zone on retrieval; has automatic behaviors for DEFAULT/ON UPDATE in some MySQL versions</li>
+                <li><strong>YEAR</strong> — year in 2- or 4-digit form</li>
+            </ul>
+
+            <div class="example">
+                <h3>Date/time example</h3>
+                <code>
+                    CREATE TABLE events (
+                      id INT AUTO_INCREMENT PRIMARY KEY,
+                      start_at DATETIME NOT NULL,
+                      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+                </code>
+            </div>
+
+            <h2>JSON and semi-structured data</h2>
+            <p>MySQL has a native <code>JSON</code> type that stores JSON documents efficiently and supports JSON functions and indexing via generated columns. Use JSON for flexible, schemaless pieces of data.</p>
+
+            <div class="example">
+                <code>
+                    CREATE TABLE orders (
+                      id INT AUTO_INCREMENT PRIMARY KEY,
+                      metadata JSON
+                    );
+                </code>
+            </div>
+
+            <h2>Spatial (GIS) types</h2>
+            <p>MySQL supports spatial types (GEOMETRY, POINT, LINESTRING, POLYGON, etc.) and spatial indexes. Use these for mapping, location queries and GIS workloads.</p>
+
+            <h2>Binary / UUID storage</h2>
+            <p>MySQL doesn't have a dedicated UUID type; common patterns are storing UUIDs as <code>CHAR(36)</code> (text) or as <code>BINARY(16)</code> (compact). Use <code>BINARY(16)</code> for storage efficiency and index size benefits (store raw bytes from UUID).</p>
+
+            <h2>Choosing types & best practices</h2>
+            <ul>
+                <li>Use the smallest integer type that fits your range. Prefer <code>UNSIGNED</code> when values are non-negative.</li>
+                <li>Use <code>DECIMAL</code> for monetary values to avoid floating-point rounding.</li>
+                <li>Prefer <code>VARCHAR</code> over <code>TEXT</code> when you need to index or constrain length; TEXT types have limitations on indexing unless using full-text indexes.</li>
+                <li>Use <code>JSON</code> when you need flexible nested structures, but prefer normalized columns for frequently queried attributes (or extract them into generated columns for indexing).</li>
+                <li>Avoid storing arrays as a single delimited string — prefer junction tables or JSON depending on use-case.</li>
+                <li>For high-write workloads, be cautious with very wide rows (many large TEXT/BLOB columns) as they affect IO and page splits.</li>
             </ul>
 
             <div class="note">
-                <p><strong>Choosing the Right Data Type:</strong></p>
+                <p><strong>Storage considerations:</strong></p>
                 <ul>
-                    <li>Consider the range of values needed</li>
-                    <li>Think about storage requirements</li>
-                    <li>Consider performance implications</li>
-                    <li>Think about data validation needs</li>
+                    <li>Character set (utf8mb4) and collation affect storage size for string types; utf8mb4 uses up to 4 bytes per character.</li>
+                    <li>Indexes on long VARCHAR/TEXT columns may need length prefixes or generated columns.</li>
+                    <li>Use appropriate index types (B-tree for most columns; FULLTEXT for text search; SPATIAL for geometry with MyISAM or InnoDB spatial indexes on newer MySQL).</li>
                 </ul>
             </div>
         </div>
