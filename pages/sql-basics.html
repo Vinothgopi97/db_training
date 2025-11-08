@@ -84,18 +84,119 @@
                 </code>
             </div>
 
-            <h2>SQL Operators</h2>
+            <h2>SQL Operators — Reference and Examples</h2>
+            <p>Operators are the building blocks of SQL expressions. Below are the common operator categories you will use in MySQL.</p>
+
+            <h3>Comparison operators</h3>
             <ul>
-                <li><strong>Comparison:</strong> =, >, <, >=, <=, <></li>
-                <li><strong>Logical:</strong> AND, OR, NOT</li>
-                <li><strong>Special:</strong> BETWEEN, IN, LIKE, IS NULL</li>
+                <li><code>=</code> — equality (NULL-safe equality uses <code>IS</code> / <code>IS NOT</code> for NULL checks)</li>
+                <li><code>&lt;&gt;</code> or <code>!=</code> — not equal</li>
+                <li><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> — less/greater than</li>
+                <li><code>BETWEEN a AND b</code> — inclusive range check</li>
+                <li><code>IN (a, b, c)</code> — membership in a list</li>
+            </ul>
+            <div class="example">
+                <code>
+                    SELECT * FROM users WHERE age BETWEEN 18 AND 30;
+                    SELECT * FROM products WHERE category IN ('books','games');
+                </code>
+            </div>
+
+            <h3>Logical operators</h3>
+            <p>Combine boolean conditions using:</p>
+            <ul>
+                <li><code>AND</code> — both conditions true</li>
+                <li><code>OR</code> — at least one true</li>
+                <li><code>NOT</code> — negation</li>
+            </ul>
+            <div class="example"><code>SELECT * FROM orders WHERE status = 'paid' AND total &gt; 0;</code></div>
+
+            <h3>Arithmetic operators</h3>
+            <p>Use for numeric math: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> (modulo).</p>
+            <div class="example"><code>UPDATE accounts SET balance = balance - 100 WHERE id = 1;</code></div>
+
+            <h3>String and pattern operators</h3>
+            <ul>
+                <li><code>LIKE</code> — pattern match with <code>%</code> and <code>_</code> wildcards.</li>
+                <li><code>REGEXP</code> — regular-expression match.</li>
+            </ul>
+            <div class="example"><code>SELECT * FROM users WHERE email LIKE '%@example.com';</code></div>
+
+            <h3>NULL handling</h3>
+            <p>NULL is not a value — comparisons with NULL return unknown. Use:</p>
+            <ul>
+                <li><code>IS NULL</code> / <code>IS NOT NULL</code> to test for NULL.</li>
+                <li><code>COALESCE(expr1, expr2, ...)</code> to provide a default when NULL.</li>
+            </ul>
+            <div class="example"><code>SELECT COALESCE(phone,'(not provided)') FROM contacts;</code></div>
+
+            <h3>Bitwise operators</h3>
+            <p>Operate on integers at the bit-level: <code>&amp;</code> (AND), <code>|</code> (OR), <code>^</code> (XOR), <code>~</code> (NOT), shift <code>&lt;&lt;</code> and <code>&gt;&gt;</code>.</p>
+
+            <h3>JSON operators (MySQL)</h3>
+            <p>MySQL provides JSON-specific operators/functions: <code>-></code>, <code>->></code>, <code>JSON_EXTRACT()</code>, <code>JSON_UNQUOTE()</code>. Example:</p>
+            <div class="example"><code>SELECT metadata-&gt;&gt;'$.user.ip' FROM events WHERE JSON_CONTAINS(metadata,'"mobile"','$.device');</code></div>
+
+            <h3>Operator precedence and parentheses</h3>
+            <p>Use parentheses <code>(...)</code> to make evaluation order explicit. Logical <code>AND</code> has higher precedence than <code>OR</code>.</p>
+
+            <h2>SQL Functions — Reference and Examples</h2>
+            <p>Functions transform data and return values. Below are key function categories with examples commonly used in MySQL.</p>
+
+            <h3>Aggregate functions</h3>
+            <ul>
+                <li><code>COUNT(expr)</code> — row count (use <code>COUNT(*)</code> or <code>COUNT(DISTINCT col)</code>).</li>
+                <li><code>SUM(expr)</code> — sum of values.</li>
+                <li><code>AVG(expr)</code> — average of values.</li>
+                <li><code>MIN(expr)</code>, <code>MAX(expr)</code> — minimum/maximum.</li>
+            </ul>
+            <div class="example"><code>SELECT category, COUNT(*) AS cnt, AVG(price) FROM products GROUP BY category;</code></div>
+
+            <h3>String functions</h3>
+            <ul>
+                <li><code>CONCAT(a,b,...)</code> — concatenate strings.</li>
+                <li><code>SUBSTRING(s,pos,len)</code> — extract substring.</li>
+                <li><code>LEFT/RIGHT(s,n)</code> — left/right substring.</li>
+                <li><code>LOWER/UPPER(s)</code> — case conversion.</li>
+                <li><code>TRIM()</code>, <code>REPLACE()</code>, <code>FORMAT()</code> etc.</li>
+            </ul>
+            <div class="example"><code>SELECT CONCAT(first_name,' ',last_name) AS full_name FROM users;</code></div>
+
+            <h3>Date/time functions</h3>
+            <ul>
+                <li><code>NOW()</code>, <code>CURRENT_TIMESTAMP()</code> — current datetime.</li>
+                <li><code>DATE(expr)</code>, <code>TIME(expr)</code>, <code>YEAR(expr)</code>, <code>MONTH(expr)</code>, <code>DAY(expr)</code></li>
+                <li><code>DATE_ADD(date, INTERVAL n unit)</code>, <code>DATE_SUB()</code> for arithmetic.</li>
+                <li><code>TIMESTAMPDIFF(unit, datetime1, datetime2)</code> — difference between times.</li>
+            </ul>
+            <div class="example"><code>SELECT DATE(created_at) AS created_date, COUNT(*) FROM orders GROUP BY created_date;</code></div>
+
+            <h3>Numeric functions</h3>
+            <ul>
+                <li><code>ROUND(x, d)</code>, <code>CEIL(x)</code>, <code>FLOOR(x)</code></li>
+                <li><code>ABS(x)</code>, <code>POW(x,y)</code>, <code>SQRT(x)</code></li>
             </ul>
 
-            <h2>SQL Functions</h2>
+            <h3>Conditional functions</h3>
             <ul>
-                <li><strong>Aggregate:</strong> COUNT(), SUM(), AVG(), MAX(), MIN()</li>
-                <li><strong>String:</strong> CONCAT(), SUBSTRING(), UPPER(), LOWER()</li>
-                <li><strong>Date:</strong> NOW(), DATE(), YEAR(), MONTH(), DAY()</li>
+                <li><code>IF(expr, true_val, false_val)</code> — ternary-style conditional.</li>
+                <li><code>CASE WHEN ... THEN ... [ELSE ...] END</code> — SQL-standard conditional expression.</li>
+                <li><code>COALESCE(a,b,...)</code> — first non-NULL value.</li>
+            </ul>
+            <div class="example"><code>SELECT CASE WHEN stock &lt; 1 THEN 'out' WHEN stock &lt; 10 THEN 'low' ELSE 'ok' END FROM products;</code></div>
+
+            <h3>JSON functions</h3>
+            <p>MySQL exposes many JSON helpers: <code>JSON_EXTRACT()</code>, <code>JSON_UNQUOTE()</code>, <code>JSON_CONTAINS()</code>, <code>JSON_ARRAYAGG()</code>, <code>JSON_OBJECT()</code>. Use generated columns and indexes for performant JSON queries.</p>
+
+            <h3>Window functions (analytic)</h3>
+            <p>MySQL supports window functions (since 8.0): <code>ROW_NUMBER()</code>, <code>RANK()</code>, <code>SUM() OVER (PARTITION BY ... ORDER BY ...)</code>, etc.</p>
+            <div class="example"><code>SELECT user_id, amount, SUM(amount) OVER (PARTITION BY user_id ORDER BY created_at) AS running_total FROM payments;</code></div>
+
+            <h3>Performance & best practices</h3>
+            <ul>
+                <li>Apply functions to indexed columns carefully — functions on the left side of comparisons can prevent index usage.</li>
+                <li>Prefer sargable expressions in WHERE clauses (e.g., <code>col &gt;= ?</code> rather than <code>YEAR(col) = ?</code>).</li>
+                <li>Use appropriate aggregate grouping and avoid SELECT * in large queries when not needed.</li>
             </ul>
 
             <div class="note">
